@@ -1,10 +1,16 @@
-"""modules for enum type and dataclass decorator"""
+"""modules"""
+# enum module allows us to create enumeration types
 from enum import Enum
+# dataclass module provides a way to create data classes without the need to write methods
 from dataclasses import dataclass
 
 
 class CandyType(Enum):
-    """Enum class for candy type"""
+    """Enumeration representing different types of candies
+
+    This Enum class defines constants for various candy types, providing a readable and
+    structured way to represent and work with different categories of candies
+    """
     BAR = 1
     BUTTON = 2
     POPCORN = 3
@@ -13,40 +19,58 @@ class CandyType(Enum):
 
 @dataclass
 class Candy:
-    "Class for candies"
+    """A class representing various candies
+
+    Attributes:
+        name (str): The name of the candy
+        mass_in_grams (int): The mass of a single candy in grams
+        amount (int): The amount of candies
+        price (int): The price of a single candy in UAH
+        typecandy (CandyType): The type of candy as an enumeration (BAR, BUTTON, POPCORN, GUM)
+    """
     name: str
     mass_in_grams: int
     amount: int
     price: int
-    typecandy: CandyType
+    type_candy: CandyType
 
     def __str__(self):
         return (
-            f"{self.name} - {self.typecandy} in the amount of {self.amount},"
+            f"{self.name} - {self.type_candy.name} in the amount of {self.amount},"
             f" weighing {self.mass_in_grams} grams and costs {self.price} UAH"
         )
 
     def __repr__(self):
         return (
             f"Name: {self.name}; Mass: {self.mass_in_grams};"
-            f" Amount: {self.amount}; Price: {self.price}; {self.typecandy}"
+            f" Amount: {self.amount}; Price: {self.price}; {self.type_candy}"
         )
 
     def ate(self):
-        """Method for eating candy"""
+        """Check if consuming the specified quantity of candies exceeds a dietary limit
+
+        This method evaluates whether the total mass of candies, considering both the
+        quantity and individual mass, exceeds 2000 grams, indicating a potential dietary
+        concern and returns result
+        """
         if self.mass_in_grams * self.amount > 2000:
             return "You're on a diet!"
         return "What delicious candies!"
 
     def get_price(self):
-        """getter for candy price | used in findthemostexpensivecandies"""
+        """getter for candy price | used in find_the_most_expensive_candies"""
         return f'Price: {self.price}'
 
 
 class Dinner:
     """Class for Dinner part of the task"""
     def __init__(self, day, time):
-        """init method for Diner class"""
+        """Initialize a Dinner instance with the specified day and time
+
+        Args:
+            day (str): The day of the week for the dinner
+            time (str): The time at which the dinner occurs
+        """
         self.__day = day
         self.__time = time
         self.candies = []
@@ -63,7 +87,7 @@ class Dinner:
         """Add more than 1 candy"""
         self.candies.extend(__new_candies)
 
-    def findthemostexpensivecandies(self):
+    def find_the_most_expensive_candies(self):
         """Method for finding top 3 most expensive candies"""
         top_3_most_expensive = sorted(self.candies, key=lambda x: x.get_price(), reverse=True)
         return top_3_most_expensive[:3]
@@ -87,6 +111,6 @@ if __name__ == '__main__':
     print("-----"*20)
 
     print("Top 3 most expensive candies:")
-    top_3 = dinner1.findthemostexpensivecandies()
-    for i, candy in enumerate(top_3):
+    top_3 = dinner1.find_the_most_expensive_candies()
+    for i, candy in enumerate(dinner1.find_the_most_expensive_candies()):
         print(f"{i+1}. {candy}")
