@@ -1,4 +1,4 @@
-"""modules"""
+"""modules used in the code:"""
 # enum module allows us to create enumeration types
 from enum import Enum
 # dataclass module provides a way to create data classes without the need to write methods
@@ -111,6 +111,5 @@ if __name__ == '__main__':
     print("-----"*20)
 
     print("Top 3 most expensive candies:")
-    top_3 = dinner1.find_the_most_expensive_candies()
     for i, candy in enumerate(dinner1.find_the_most_expensive_candies()):
         print(f"{i+1}. {candy}")
